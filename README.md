@@ -1,0 +1,1 @@
+Amazon, stock predictor with local hosted llm to read news and adjust stock price predictions 

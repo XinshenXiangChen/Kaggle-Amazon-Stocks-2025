@@ -22,7 +22,14 @@ class DeepSeekRequester(object):
         answer = self.request()
         prediction = self.interpret_response()
 
-    def request(self, url="http://localhost:11434/api/chat", mode=LLMMode.CLOUD):
+
+    def request(self, mode):
+        if mode == LLMMode.LOCAL:
+            self.local_request()
+        elif mode == LLMMode.CLOUD:
+            self.cloud_request()
+
+    def local_request(self, url="http://localhost:11434/api/chat", mode=LLMMode.CLOUD):
         model_name = "deepseek_model"
 
 
@@ -57,8 +64,6 @@ class DeepSeekRequester(object):
             print(f"Error: {response.status_code}")
             print(response.text)
 
-    def _local_request(self):
-        pass
 
     def cloud_request(self):
         client = OpenAI(api_key=os.environ.get('DEEPSEEK_API_KEY'), base_url="https://api.deepseek.com")
